@@ -1,7 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ContactController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,5 +12,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-use App\Http\Controllers\ContactController;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', [ContactController::class, 'index'])->name('contact.index');
