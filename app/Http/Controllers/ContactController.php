@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ContactRequest;
+use App\Http\Requests\StoreContactRequest;
 use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Tag;
@@ -24,9 +24,10 @@ class ContactController extends Controller
     /**
      * お問い合わせ確認画面
      */
-    public function confirm(ContactRequest $request)
+    public function confirm(StoreContactRequest $request)
     {
         $validated = $request->validated();
+        $request->flash();
 
         $category = Category::findOrFail(
             $validated['category_id']
@@ -46,7 +47,7 @@ class ContactController extends Controller
     /**
      * お問い合わせ保存処理
      */
-    public function store(ContactRequest $request)
+   public function store(StoreContactRequest $request)
 {
     $validated = $request->validated();
 
@@ -68,6 +69,10 @@ class ContactController extends Controller
         }
     });
 
-    return view('contact.thanks');
+    return redirect('/thanks');
 }
+    public function thanks()
+    {
+    return view('contact.thanks');
+    }
 }
