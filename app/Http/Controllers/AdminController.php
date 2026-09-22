@@ -1,16 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Requests\IndexContactRequest;
-use App\Http\Controllers\AdminController;
-use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Tag;
 
 class AdminController extends Controller
 {
-     public function index(IndexContactRequest $request)
+    public function index(IndexContactRequest $request)
     {
         $query = Contact::with(['category', 'tags']);
 
@@ -55,10 +54,11 @@ class AdminController extends Controller
 
         return view('admin.show', compact('contact'));
     }
+
     public function destroy(Contact $contact)
     {
-    $contact->delete();
+        $contact->delete();
 
-    return redirect('/admin');
+        return redirect('/admin');
     }
 }

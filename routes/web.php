@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TagController;
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 
 // お問い合わせフォーム
 Route::get('/', [ContactController::class, 'index'])
@@ -29,7 +29,6 @@ Route::post('/contacts', [ContactController::class, 'store'])
 Route::get('/thanks', [ContactController::class, 'thanks'])
     ->name('contact.thanks');
 
-
 // 管理画面
 Route::middleware('auth')->group(function () {
 
@@ -41,7 +40,6 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/admin/contacts/{contact}', [AdminController::class, 'destroy'])
         ->name('admin.contacts.destroy');
-
 
     // タグ管理
     Route::post('/admin/tags', [TagController::class, 'store'])

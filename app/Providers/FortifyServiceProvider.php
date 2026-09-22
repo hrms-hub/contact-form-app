@@ -35,12 +35,12 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
         Fortify::redirectUserForTwoFactorAuthenticationUsing(RedirectIfTwoFactorAuthenticatable::class);
 
-          // ログインは1分間に5回まで
+        // ログインは1分間に5回まで
         RateLimiter::for('login', function (Request $request) {
             $throttleKey = Str::transliterate(
                 Str::lower($request->input(Fortify::username()))
-                . '|'
-                . $request->ip()
+                .'|'
+                .$request->ip()
             );
 
             return Limit::perMinute(5)->by($throttleKey);

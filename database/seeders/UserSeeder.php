@@ -13,8 +13,8 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-         // 管理者ユーザーを作成
-          User::create([
+        // 管理者ユーザーを作成
+        User::create([
             'name' => 'Test User',
             'email' => 'test@example.com',
             'password' => Hash::make('password'),

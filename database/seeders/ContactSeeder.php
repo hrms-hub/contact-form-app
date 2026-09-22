@@ -13,7 +13,7 @@ class ContactSeeder extends Seeder
      */
     public function run(): void
     {
-       Contact::factory()
+        Contact::factory()
             ->count(20)
             ->create()
             ->each(function ($contact) {

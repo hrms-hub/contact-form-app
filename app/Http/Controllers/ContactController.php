@@ -47,32 +47,33 @@ class ContactController extends Controller
     /**
      * お問い合わせ保存処理
      */
-   public function store(StoreContactRequest $request)
-{
-    $validated = $request->validated();
+    public function store(StoreContactRequest $request)
+    {
+        $validated = $request->validated();
 
-    DB::transaction(function () use ($validated) {
-        $contact = Contact::create([
-            'category_id' => $validated['category_id'],
-            'first_name' => $validated['first_name'],
-            'last_name' => $validated['last_name'],
-            'gender' => $validated['gender'],
-            'email' => $validated['email'],
-            'tel' => $validated['tel'],
-            'address' => $validated['address'],
-            'building' => $validated['building'] ?? null,
-            'detail' => $validated['detail'],
-        ]);
+        DB::transaction(function () use ($validated) {
+            $contact = Contact::create([
+                'category_id' => $validated['category_id'],
+                'first_name' => $validated['first_name'],
+                'last_name' => $validated['last_name'],
+                'gender' => $validated['gender'],
+                'email' => $validated['email'],
+                'tel' => $validated['tel'],
+                'address' => $validated['address'],
+                'building' => $validated['building'] ?? null,
+                'detail' => $validated['detail'],
+            ]);
 
-        if (!empty($validated['tag_ids'])) {
-            $contact->tags()->attach($validated['tag_ids']);
-        }
-    });
+            if (! empty($validated['tag_ids'])) {
+                $contact->tags()->attach($validated['tag_ids']);
+            }
+        });
 
-    return redirect('/thanks');
-}
+        return redirect('/thanks');
+    }
+
     public function thanks()
     {
-    return view('contact.thanks');
+        return view('contact.thanks');
     }
 }
