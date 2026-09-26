@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
         ->name('admin.index');
 
     Route::get('/contacts/export', [ContactController::class, 'export'])
-    ->name('contacts.export');
+        ->name('contacts.export');
 
     Route::get('/admin/contacts/{contact}', [AdminController::class, 'show'])
         ->name('admin.contacts.show');

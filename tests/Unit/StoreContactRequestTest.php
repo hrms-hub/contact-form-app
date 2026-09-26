@@ -33,7 +33,7 @@ class StoreContactRequestTest extends TestCase
             'detail' => 'お問い合わせ内容です。',
         ];
 
-        $request = new StoreContactRequest();
+        $request = new StoreContactRequest;
 
         $validator = Validator::make(
             $data,
@@ -63,7 +63,7 @@ class StoreContactRequestTest extends TestCase
             'detail' => 'お問い合わせ内容です。',
         ];
 
-        $request = new StoreContactRequest();
+        $request = new StoreContactRequest;
 
         $validator = Validator::make(
             $data,

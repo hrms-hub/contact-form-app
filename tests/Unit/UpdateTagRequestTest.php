@@ -20,7 +20,7 @@ class UpdateTagRequestTest extends TestCase
             'name' => 'Laravel',
         ]);
 
-        $formRequest = new UpdateTagRequest();
+        $formRequest = new UpdateTagRequest;
 
         $route = new Route('PUT', '/admin/tags/{tag}', []);
 
@@ -55,7 +55,7 @@ class UpdateTagRequestTest extends TestCase
             'name' => 'PHP',
         ]);
 
-        $formRequest = new UpdateTagRequest();
+        $formRequest = new UpdateTagRequest;
 
         $route = new Route('PUT', '/admin/tags/{tag}', []);
 

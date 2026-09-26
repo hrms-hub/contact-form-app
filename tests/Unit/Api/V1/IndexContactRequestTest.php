@@ -24,7 +24,7 @@ class IndexContactRequestTest extends TestCase
             'per_page' => 20,
         ];
 
-        $request = new IndexContactRequest();
+        $request = new IndexContactRequest;
 
         $validator = Validator::make(
             $data,
@@ -44,7 +44,7 @@ class IndexContactRequestTest extends TestCase
             'per_page' => 101,
         ];
 
-        $request = new IndexContactRequest();
+        $request = new IndexContactRequest;
 
         $validator = Validator::make(
             $data,

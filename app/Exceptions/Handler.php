@@ -4,8 +4,6 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Throwable;
-
 
 class Handler extends ExceptionHandler
 {
@@ -26,11 +24,11 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->renderable(function (NotFoundHttpException $e, $request) {
-        if ($request->is('api/v1/contacts/*')) {
-            return response()->json([
-                'error' => 'お問い合わせが見つかりませんでした。',
-            ], 404);
-        }
-    });
+            if ($request->is('api/v1/contacts/*')) {
+                return response()->json([
+                    'error' => 'お問い合わせが見つかりませんでした。',
+                ], 404);
+            }
+        });
     }
 }

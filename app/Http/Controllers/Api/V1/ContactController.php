@@ -14,96 +14,96 @@ class ContactController extends Controller
     /**
      * Display a listing of the resource.
      */
-   public function index(IndexContactRequest $request)
-{
-    $query = Contact::with(['category', 'tags']);
+    public function index(IndexContactRequest $request)
+    {
+        $query = Contact::with(['category', 'tags']);
 
-    if ($request->filled('keyword')) {
-        $keyword = $request->input('keyword');
+        if ($request->filled('keyword')) {
+            $keyword = $request->input('keyword');
 
-        $query->where(function ($query) use ($keyword) {
-            $query->where('first_name', 'like', '%' . $keyword . '%')
-                ->orWhere('last_name', 'like', '%' . $keyword . '%')
-                ->orWhere('email', 'like', '%' . $keyword . '%');
-        });
+            $query->where(function ($query) use ($keyword) {
+                $query->where('first_name', 'like', '%'.$keyword.'%')
+                    ->orWhere('last_name', 'like', '%'.$keyword.'%')
+                    ->orWhere('email', 'like', '%'.$keyword.'%');
+            });
+        }
+
+        if ($request->filled('gender')) {
+            $query->where('gender', $request->input('gender'));
+        }
+
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->input('category_id'));
+        }
+
+        if ($request->filled('date')) {
+            $query->whereDate('created_at', $request->input('date'));
+        }
+
+        $perPage = $request->input('per_page', 20);
+
+        $contacts = $query->latest()->paginate($perPage);
+
+        return ContactResource::collection($contacts);
     }
-
-    if ($request->filled('gender')) {
-        $query->where('gender', $request->input('gender'));
-    }
-
-    if ($request->filled('category_id')) {
-        $query->where('category_id', $request->input('category_id'));
-    }
-
-    if ($request->filled('date')) {
-        $query->whereDate('created_at', $request->input('date'));
-    }
-
-    $perPage = $request->input('per_page', 20);
-
-    $contacts = $query->latest()->paginate($perPage);
-
-    return ContactResource::collection($contacts);
-}
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreContactRequest $request)
-{
-    $validated = $request->validated();
+    {
+        $validated = $request->validated();
 
-    $tagIds = $validated['tag_ids'] ?? [];
-    unset($validated['tag_ids']);
+        $tagIds = $validated['tag_ids'] ?? [];
+        unset($validated['tag_ids']);
 
-    $contact = Contact::create($validated);
+        $contact = Contact::create($validated);
 
-    $contact->tags()->attach($tagIds);
+        $contact->tags()->attach($tagIds);
 
-    $contact->load(['category', 'tags']);
+        $contact->load(['category', 'tags']);
 
-    return (new ContactResource($contact))
-        ->response()
-        ->setStatusCode(201);
-}
+        return (new ContactResource($contact))
+            ->response()
+            ->setStatusCode(201);
+    }
 
     /**
      * Display the specified resource.
      */
     public function show(Contact $contact)
-{
-    $contact->load(['category', 'tags']);
+    {
+        $contact->load(['category', 'tags']);
 
-    return new ContactResource($contact);
-}
+        return new ContactResource($contact);
+    }
 
     /**
      * Update the specified resource in storage.
      */
-   public function update(UpdateContactRequest $request, Contact $contact)
-{
-    $validated = $request->validated();
+    public function update(UpdateContactRequest $request, Contact $contact)
+    {
+        $validated = $request->validated();
 
-    $tagIds = $validated['tag_ids'] ?? [];
-    unset($validated['tag_ids']);
+        $tagIds = $validated['tag_ids'] ?? [];
+        unset($validated['tag_ids']);
 
-    $contact->update($validated);
+        $contact->update($validated);
 
-    $contact->tags()->sync($tagIds);
+        $contact->tags()->sync($tagIds);
 
-    $contact->load(['category', 'tags']);
+        $contact->load(['category', 'tags']);
 
-    return new ContactResource($contact);
-}
+        return new ContactResource($contact);
+    }
 
     /**
      * Remove the specified resource from storage.
      */
-   public function destroy(Contact $contact)
-{
-    $contact->delete();
+    public function destroy(Contact $contact)
+    {
+        $contact->delete();
 
-    return response()->json(null, 204);
-}
+        return response()->json(null, 204);
+    }
 }

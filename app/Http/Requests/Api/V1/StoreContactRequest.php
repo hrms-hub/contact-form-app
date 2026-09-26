@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\V1;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreContactRequest extends FormRequest
@@ -17,7 +18,7 @@ class StoreContactRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
@@ -35,7 +36,8 @@ class StoreContactRequest extends FormRequest
             'tag_ids.*' => ['integer', 'exists:tags,id'],
         ];
     }
-  public function messages(): array
+
+    public function messages(): array
     {
         return [
             'first_name.required' => '姓を入力してください',

@@ -23,7 +23,7 @@ class ExportContactRequestTest extends TestCase
             'date' => '2026-09-23',
         ];
 
-        $request = new ExportContactRequest();
+        $request = new ExportContactRequest;
 
         $validator = Validator::make(
             $data,
@@ -39,7 +39,7 @@ class ExportContactRequestTest extends TestCase
             'gender' => 4,
         ];
 
-        $request = new ExportContactRequest();
+        $request = new ExportContactRequest;
 
         $validator = Validator::make(
             $data,
@@ -56,7 +56,7 @@ class ExportContactRequestTest extends TestCase
             'category_id' => 999999,
         ];
 
-        $request = new ExportContactRequest();
+        $request = new ExportContactRequest;
 
         $validator = Validator::make(
             $data,

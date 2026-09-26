@@ -14,7 +14,7 @@ class StoreTagRequestTest extends TestCase
 
     public function test_valid_tag_name_is_accepted(): void
     {
-        $request = new StoreTagRequest();
+        $request = new StoreTagRequest;
 
         $validator = Validator::make(
             [
@@ -28,7 +28,7 @@ class StoreTagRequestTest extends TestCase
 
     public function test_tag_name_is_required(): void
     {
-        $request = new StoreTagRequest();
+        $request = new StoreTagRequest;
 
         $validator = Validator::make(
             [
@@ -46,7 +46,7 @@ class StoreTagRequestTest extends TestCase
 
     public function test_tag_name_must_not_exceed_50_characters(): void
     {
-        $request = new StoreTagRequest();
+        $request = new StoreTagRequest;
 
         $validator = Validator::make(
             [
@@ -68,7 +68,7 @@ class StoreTagRequestTest extends TestCase
             'name' => 'Laravel',
         ]);
 
-        $request = new StoreTagRequest();
+        $request = new StoreTagRequest;
 
         $validator = Validator::make(
             [
